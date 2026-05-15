@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils.formats import date_format
 
 from prompthub import settings
 
@@ -10,6 +9,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ("name",)
 
 class Author(AbstractUser):
     display_name = models.CharField(max_length=100, blank=True, null=True)
@@ -34,7 +36,7 @@ class Prompt(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        date_format = "%m/%d/%Y %I:%M %p"
+        date_format = "%m/%d/%Y %I:%M:%S"
         created_at = self.created_at.strftime(date_format)
         updated_at = self.updated_at.strftime(date_format)
         preview = self.content[:25]
@@ -59,6 +61,9 @@ class Rating(models.Model):
 
     class Meta:
         unique_together = ("user", "prompt")
+
+    def __str__(self):
+        return str(self.value)
 
 class Comment(models.Model):
     content = models.TextField(null=True, blank=True)
