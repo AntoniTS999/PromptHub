@@ -1,7 +1,14 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
+  <form class="form-inline" action="" method="get">
+      {% csrf_token %}
+    {{ search_form|crispy }}
+      <input class="btn btn-secondary" type="submit" value="🔎">
+    </form>
   {% if prompt_list %}
+
   <ul class="list-group list-group-flush">
   {% for prompt in prompt_list %}
     <li class="list-group-item">
@@ -24,6 +31,6 @@
   </ul>
     {% endfor %}
   {% else %}
-    <p style="color: crimson">There are no prompts at that moment, please come back in a while</p>
+    <p style="color: crimson">No prompts found to show</p>
   {% endif %}
 {% endblock %}
