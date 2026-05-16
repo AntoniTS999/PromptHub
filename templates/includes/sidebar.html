@@ -18,9 +18,12 @@
   <div class="mt-auto border-top pb-3">
     {% if user.is_authenticated %}
       <p class="px-3 font-weight-bold text-center">{{ user }}</p>
-      <a href="#" class="nav-link text-danger btn btn-dark">Logout</a>
+      <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button class="text-danger btn btn-dark w-100" type="submit">Logout</button>
+      </form>
     {% else %}
-      <a href="#" class="nav-link text-primary">Login</a>
+      <a href="{% url 'login' %}" class="nav-link text-danger btn btn-dark">Login</a>
     {% endif %}
   </div>
 </div>

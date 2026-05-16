@@ -126,3 +126,6 @@ STATICFILES_DIRS = [
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 AUTH_USER_MODEL = "prompts.Author"
+
+LOGIN_REDIRECT_URL = "prompts:index"
+
