@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Authors:</h1>
+  {% for author in author_list.all %}
+    <hr>
+    {{ author }}: {{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}
+  {% endfor %}
+{% endblock %}

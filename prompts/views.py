@@ -43,3 +43,6 @@ class PromptListView(generic.ListView):
 
 class AuthorListView(generic.ListView):
     model = Author
+
+class CategoryListView(generic.ListView):
+    model = Category
