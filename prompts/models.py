@@ -14,7 +14,7 @@ class Category(models.Model):
         ordering = ("name",)
 
 class Author(AbstractUser):
-    display_name = models.CharField(max_length=100, blank=True, null=True)
+    display_name = models.CharField(max_length=100, blank=True, null=True, unique=True)
 
     def get_display_name(self):
         return self.display_name or self.username

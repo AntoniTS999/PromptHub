@@ -47,19 +47,19 @@ class AuthorListView(generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AuthorListView, self).get_context_data(**kwargs)
-        query = self.request.GET.get("display_name", "")
-        context["search_form"] = SearchAuthorForm(initial={"display_name": query})
+        display_name = self.request.GET.get("display_name", "")
+        context["search_form"] = SearchAuthorForm(initial={"display_name": display_name})
         return context
 
     def get_queryset(self):
         queryset = Author.objects.all()
         form = SearchAuthorForm(self.request.GET)
         if form.is_valid():
-            query = form.cleaned_data["display_name"]
-            if query:
+            data = form.cleaned_data["display_name"]
+            if data:
                 return queryset.filter(
-                    Q(display_name__icontains=query) |
-                    Q(username__icontains=query)
+                    Q(display_name__icontains=data) |
+                    Q(username__icontains=data)
                 )
         return queryset
 

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="display-2 alert alert-dark">Categories</h1>
+  <ul>
+  {% for category in category_list %}
+  <a href="#"
+     class="badge badge-pill badge-light border float-badge m-1 p-2">
+    {{ category.name }}
+  </a>
+{% endfor %}
+  </ul>
+
+
+{% endblock %}
