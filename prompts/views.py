@@ -31,3 +31,6 @@ class PromptListView(generic.ListView):
             .annotate(avg_rating=Round(Avg("ratings__value"), 2))
         )
 
+
+class AuthorListView(generic.ListView):
+    model = Author
