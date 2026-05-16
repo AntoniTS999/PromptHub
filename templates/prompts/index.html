@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p>Checking the page</p>
+  <ul>
+    <li>{{ num_prompts }} prompts</li>
+    <li>{{ num_authors }} authors</li>
+    <li>{{ num_categories }} categories</li>
+  </ul>
+  <h5>Is it really metter to be understandable?</h5>
+  <a href="{% url 'prompts:prompt-list' %}">EXPLORE THE OPENSOURCE PROMPT HUB</a>
 {% endblock %}

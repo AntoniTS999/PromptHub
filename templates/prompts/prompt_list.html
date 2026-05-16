@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if prompt_list %}
+  <ul class="list-group list-group-flush">
+  {% for prompt in prompt_list %}
+    <li class="list-group-item">
+      <strong>Title: {{ prompt.title }}</strong>
+      <br>
+      author: {{ prompt.author }}
+      <br>
+      <em>created: {{ prompt.created_at }}</em>
+    </li>
+    <li class="list-group-item">
+      Description: {{ prompt.description }}
+    </li>
+    <li class="list-group-item">
+
+      ⚡️{{ prompt.content|linebreaks }}
+    </li>
+    <li class="list-group-item">
+      ⭐️{{ prompt.avg_rating }} | comments: {{ prompt.comments.count }}
+    </li>
+  </ul>
+    {% endfor %}
+  {% else %}
+    <p style="color: crimson">There are no prompts at that moment, please come back in a while</p>
+  {% endif %}
+{% endblock %}
