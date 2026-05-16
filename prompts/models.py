@@ -16,10 +16,11 @@ class Category(models.Model):
 class Author(AbstractUser):
     display_name = models.CharField(max_length=100, blank=True, null=True)
 
+    def get_display_name(self):
+        return self.display_name or self.username
+
     def __str__(self):
-        if self.display_name:
-            return self.display_name
-        return self.username
+        return self.display_name or self.username
 
     class Meta:
         verbose_name = "Author"

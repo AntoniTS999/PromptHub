@@ -1,9 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
 	<h1>Authors:</h1>
+  <form class="form-inline" action="">
+    {% csrf_token %}
+    {{ search_form|crispy }}
+    <input type="submit" value="Search" class="btn btn-secondary">
+  </form>
   {% for author in author_list.all %}
     <hr>
-    {{ author }}: {{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}
+    <p class="alert alert-secondary">{{ author }}: {{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}</p>
   {% endfor %}
 {% endblock %}
