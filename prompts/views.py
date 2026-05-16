@@ -1,12 +1,8 @@
-from gc import get_objects
-from multiprocessing import context
-
-from django.contrib.auth import get_user_model
 from django.db.models import Avg, Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from prompts.forms import SearchPromptForm, SearchAuthorForm
+from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm
 from prompts.models import Prompt, Author, Category
 from django.views import generic
 from django.db.models.functions import Round
@@ -66,3 +62,16 @@ class AuthorListView(generic.ListView):
 
 class CategoryListView(generic.ListView):
     model = Category
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = SearchCategoryForm(initial={"name": name})
+        return context
+
+    def get_queryset(self):
+        queryset = Category.objects.prefetch_related("prompts")
+        form = SearchCategoryForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return queryset
