@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ author }}</h1>
+  {% if author.prompts.all %}
+  {% for prompt in author.prompts.all %}
+    <ul class="list-group">
+      <li class="list-group-item shadow p-3 mb-5 bg-white rounded"><a href="{% url 'prompts:prompt-detail' pk=prompt.id %}">{{ prompt.title }}</a></li>
+    </ul>
+  {% endfor %}
+  {% else %}
+  <p>No prompts from that author</p>
+  {% endif %}
+{% endblock %}

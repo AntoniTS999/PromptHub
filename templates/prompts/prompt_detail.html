@@ -11,6 +11,7 @@
   {% endfor %}
 <div class="shadow p-3 mb-5 bg-white rounded">
 <p> ⚡️ {{ prompt.content|linebreaks }}</p>
+<p><a href="#">⭐️ {{ prompt.avg_rating }}</a></p>
 </div>
 
   <h4>Comment{{ counted|pluralize }}: {{ counted }}</h4>

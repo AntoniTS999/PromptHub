@@ -10,6 +10,6 @@
   </form>
   {% for author in author_list.all %}
     <hr>
-    <p class="alert alert-secondary">{{ author }}: {{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}</p>
+    <p class="alert alert-secondary"><a href="{% url 'prompts:author-detail' pk=author.id %}">{{ author }}: {{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}</a></p>
   {% endfor %}
 {% endblock %}

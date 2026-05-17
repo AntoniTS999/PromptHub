@@ -31,7 +31,7 @@ class PromptListView(generic.ListView):
         queryset = (Prompt.objects.select_related("author")
                     .prefetch_related("categories")
                     .annotate(avg_rating=Round(Avg("ratings__value"),
-                                               2)))
+                                               1)))
         form = SearchPromptForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(title__icontains=form.cleaned_data["title"])
@@ -46,6 +46,9 @@ class PromptDetailView(generic.DetailView):
         context["counted"] = prompt.comments.count()
         return context
 
+    def get_queryset(self):
+        queryset = Prompt.objects.select_related("author").prefetch_related("categories").annotate(avg_rating=Round(Avg("ratings__value"),1))
+        return queryset
 
 
 
@@ -69,6 +72,9 @@ class AuthorListView(generic.ListView):
                     Q(username__icontains=data)
                 )
         return queryset
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
 
 
 class CategoryListView(generic.ListView):
