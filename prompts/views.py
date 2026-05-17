@@ -20,6 +20,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class PromptListView(generic.ListView):
     model = Prompt
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PromptListView, self).get_context_data(**kwargs)
@@ -54,6 +55,7 @@ class PromptDetailView(generic.DetailView):
 
 class AuthorListView(generic.ListView):
     model = Author
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AuthorListView, self).get_context_data(**kwargs)
@@ -79,6 +81,7 @@ class AuthorDetailView(generic.DetailView):
 
 class CategoryListView(generic.ListView):
     model = Category
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)

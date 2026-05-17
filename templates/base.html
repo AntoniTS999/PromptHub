@@ -23,7 +23,12 @@
       </div>
       <div class="col-sm-9">
         {% block content %}
+
         {% endblock %}
+      {% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
+
       </div>
     </div>
   </div>
