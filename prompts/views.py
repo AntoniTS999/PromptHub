@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm
+from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm
 from prompts.models import Prompt, Author, Category
 from django.views import generic
 from django.db.models.functions import Round
@@ -107,6 +107,13 @@ class CategoryDetailView(generic.DetailView):
 
 class CategoryCreateView(LoginRequiredMixin,generic.CreateView):
     model = Category
-    fields = ("name",)
+    form_class = CategoryForm
     success_url = reverse_lazy("prompts:category-list")
     template_name = "prompts/category_form.html"
+
+class CategoryUpdateView(LoginRequiredMixin,generic.UpdateView):
+    model = Category
+    fields = ("name",)
+
+    def get_success_url(self):
+        return reverse_lazy("prompts:category-detail", kwargs={"pk": self.object.pk})

@@ -1,5 +1,5 @@
 {% block sidebar %}
-<div class="d-flex flex-column pt-3" style="min-height: 100vh;">
+<div class="d-flex flex-column pt-3" style="min-height: 100vh; position: sticky; top: 0;">
   <ul class="nav flex-column">
     <li class="nav-item">
       <a href="{% url 'prompts:index' %}" class="nav-link text-dark">🏠 Home</a>
@@ -15,7 +15,7 @@
     </li>
   </ul>
 
-  <div class="mt-auto border-top pb-3">
+  <div class="mt-auto pt-3 border-top pb-3">
     {% if user.is_authenticated %}
       <p class="px-3 font-weight-bold text-center">{{ user }}</p>
       <form action="{% url 'logout' %}" method="post">

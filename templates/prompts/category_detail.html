@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <h1 class="badge badge-pill badge-light border float-badge m-3 p-2">{{ category }}
+
+  </h1>
+  {% if user.is_authenticated and user.is_superuser %}
+    <a style="float: right" class="btn btn-warning mt-3" href="{% url 'prompts:category-update' pk=category.id %}">UPDATE CATEGORY</a>
+  {% endif %}
   {% if category.prompts.all %}
   {% for prompt in category.prompts.all %}
   <ul class="list-group">
