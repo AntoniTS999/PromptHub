@@ -6,15 +6,20 @@ from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm
 from prompts.models import Prompt, Author, Category
 from django.views import generic
 from django.db.models.functions import Round
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 def index(request: HttpRequest) -> HttpResponse:
     num_prompts = Prompt.objects.all().count()
     num_authors = Author.objects.all().count()
     num_categories = Category.objects.all().count()
+    num_visits = request.session.get("num_visits", 0)
+    request.session["num_visits"] = num_visits + 1
     context = {
         "num_prompts": num_prompts,
         "num_authors": num_authors,
         "num_categories": num_categories,
+        "num_visits": num_visits + 1,
     }
     return render(request, "prompts/index.html", context=context)
 
@@ -53,7 +58,7 @@ class PromptDetailView(generic.DetailView):
 
 
 
-class AuthorListView(generic.ListView):
+class AuthorListView(LoginRequiredMixin,generic.ListView):
     model = Author
     paginate_by = 2
 
@@ -81,7 +86,7 @@ class AuthorDetailView(generic.DetailView):
 
 class CategoryListView(generic.ListView):
     model = Category
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)

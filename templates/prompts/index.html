@@ -9,4 +9,6 @@
 
   <h5>Is it really metter to be understandable?</h5>
   <a class="btn btn-dark translate-middle" href="{% url 'prompts:prompt-list' %}">EXPLORE THE OPENSOURCE PROMPT HUB</a>
+
+  <p class="m-4"><em>You have visited that page: {{ num_visits }} time{{ num_visits|pluralize }}</em></p>
 {% endblock %}
