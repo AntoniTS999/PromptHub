@@ -5,6 +5,7 @@ from prompts.views import (index, PromptListView,
                            AuthorDetailView,
                            CategoryListView,
                            CategoryDetailView,
+                           CategoryCreateView
                            )
 
 
@@ -18,7 +19,8 @@ urlpatterns = [
     path("authors/<int:pk>", AuthorDetailView.as_view(), name="author-detail"),
 
     path("categories/", CategoryListView.as_view(), name="category-list"),
-    path("category/<int:pk>", CategoryDetailView.as_view(), name="category-detail"),
+    path("categories/<int:pk>", CategoryDetailView.as_view(), name="category-detail"),
+    path("categories/create/", CategoryCreateView.as_view(), name="category-create"),
 ]
 
 app_name = "prompts"

@@ -1,6 +1,7 @@
 from django.db.models import Avg, Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
 from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm
 from prompts.models import Prompt, Author, Category
@@ -86,7 +87,7 @@ class AuthorDetailView(generic.DetailView):
 
 class CategoryListView(generic.ListView):
     model = Category
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
@@ -103,3 +104,9 @@ class CategoryListView(generic.ListView):
 
 class CategoryDetailView(generic.DetailView):
     model = Category
+
+class CategoryCreateView(LoginRequiredMixin,generic.CreateView):
+    model = Category
+    fields = ("name",)
+    success_url = reverse_lazy("prompts:category-list")
+    template_name = "prompts/category_form.html"

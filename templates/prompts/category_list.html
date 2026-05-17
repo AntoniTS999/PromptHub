@@ -8,12 +8,13 @@
     {{ search_form|crispy }}
     <input class="btn btn-secondary" type="submit" value="🔎">
   </form>
-  <ul>
+  <ul><a class="btn btn-info" style="float: right" href="{% url 'prompts:category-create' %}">Add New</a>
   {% for category in category_list %}
-  <a href="{% url 'prompts:category-detail' pk=category.id %}"
-     class="badge badge-pill badge-light border float-badge m-1 p-2">
+  <li class="badge ">
+    <a class="badge-pill badge-light border float-badge m-1 p-2" href="{% url 'prompts:category-detail' pk=category.id %}">
     {{ category.name }}
-  </a>
+      </a>
+  </li>
 {% endfor %}
   </ul>
 
