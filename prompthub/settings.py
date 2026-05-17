@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_bootstrap4",
+    "debug_toolbar",
     "prompts",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -129,3 +131,4 @@ AUTH_USER_MODEL = "prompts.Author"
 
 LOGIN_REDIRECT_URL = "prompts:index"
 
+INTERNAL_IPS = ["127.0.0.1"]

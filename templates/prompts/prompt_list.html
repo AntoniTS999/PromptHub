@@ -2,7 +2,7 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <form class="form-inline" action="" method="get">
+  <form class="form-inline mt-3" action="" method="get">
       {% csrf_token %}
     {{ search_form|crispy }}
       <input class="btn btn-secondary" type="submit" value="🔎">
@@ -18,15 +18,17 @@
       <br>
       <em>created: {{ prompt.created_at }}</em>
     </li>
-    <li class="list-group-item">
-      Description: {{ prompt.description }}
+    <li class="list-group-item d-flex flex-column">
+      <strong>Description:</strong> {{ prompt.description }}
+      <a class="btn btn-info" href="{% url 'prompts:prompt-detail' pk=prompt.id %}">⚡️Click here to see prompt⚡️</a>
     </li>
     <li class="list-group-item">
-
-      ⚡️{{ prompt.content|linebreaks }}
-    </li>
-    <li class="list-group-item">
-      ⭐️{{ prompt.avg_rating }} | comments: {{ prompt.comments.count }}
+    {% if prompt.avg_rating %}
+      ⭐️{{ prompt.avg_rating }}
+      {% else %}
+      ⭐️ Be the first to rate
+      {% endif %}
+      | <a href="{% url 'prompts:prompt-detail' pk=prompt.id %}">comments: {{ prompt.comments.count }} </a>
     </li>
   </ul>
     {% endfor %}

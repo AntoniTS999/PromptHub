@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <ul>
-    <li>{{ num_prompts }} prompts</li>
-    <li>{{ num_authors }} authors</li>
-    <li>{{ num_categories }} categories</li>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-info m-3">{{ num_prompts }} prompts</li>
+    <li class="list-group-item list-group-item-info m-3">{{ num_authors }} authors</li>
+    <li class="list-group-item list-group-item-info m-3">{{ num_categories }} categories</li>
   </ul>
+
   <h5>Is it really metter to be understandable?</h5>
-  <a href="{% url 'prompts:prompt-list' %}">EXPLORE THE OPENSOURCE PROMPT HUB</a>
+  <a class="btn btn-dark translate-middle" href="{% url 'prompts:prompt-list' %}">EXPLORE THE OPENSOURCE PROMPT HUB</a>
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1>{{ prompt.title }}</h1>
+    {% for category in prompt.categories.all  %}
+  <p href="#"
+     class="badge badge-pill badge-light border float-badge m-1 p-2">
+    {{ category.name }}
+  </p>
+  {% endfor %}
+<div class="shadow p-3 mb-5 bg-white rounded">
+<p> ⚡️ {{ prompt.content|linebreaks }}</p>
+</div>
+
+  <h4>Comment{{ counted|pluralize }}: {{ counted }}</h4>
+
+  <div class="container shadow p-3 mb-5 bg-white rounded">
+  {% if prompt.comments.all %}
+  {% for comment in prompt.comments.all %}
+
+    <p>{{ comment.user }}: {{ comment.created_at }}}</p>
+    <br>
+    {{ comment.content }}
+  <br>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>No comments yet</p>
+  {% endif %}
+{% endblock %}

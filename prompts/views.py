@@ -37,6 +37,17 @@ class PromptListView(generic.ListView):
             return queryset.filter(title__icontains=form.cleaned_data["title"])
         return queryset
 
+class PromptDetailView(generic.DetailView):
+    model = Prompt
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        prompt = self.get_object()
+        context = super(PromptDetailView, self).get_context_data(**kwargs)
+        context["counted"] = prompt.comments.count()
+        return context
+
+
+
 
 class AuthorListView(generic.ListView):
     model = Author
