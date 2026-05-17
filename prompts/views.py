@@ -117,3 +117,13 @@ class CategoryUpdateView(LoginRequiredMixin,generic.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("prompts:category-detail", kwargs={"pk": self.object.pk})
+
+class CategoryDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = Category
+    success_url = reverse_lazy("prompts:category-list")
+    template_name = "prompts/category_delete.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["next"] = self.request.META.get("HTTP_REFERER")
+        return context
