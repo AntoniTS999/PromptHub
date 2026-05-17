@@ -2,9 +2,9 @@
 
 {% block content %}
   <ul class="list-group">
-    <li class="list-group-item list-group-item-info m-3">{{ num_prompts }} prompts</li>
-    <li class="list-group-item list-group-item-info m-3">{{ num_authors }} authors</li>
-    <li class="list-group-item list-group-item-info m-3">{{ num_categories }} categories</li>
+    <li class="list-group-item list-group-item-info m-3"><a href="{% url 'prompts:prompt-list' %}">{{ num_prompts }} prompts</a></li>
+    <li class="list-group-item list-group-item-info m-3"><a href="{% url 'prompts:author-list' %}">{{ num_authors }} authors</a></li>
+    <li class="list-group-item list-group-item-info m-3"><a href="{% url 'prompts:category-list' %}">{{ num_categories }} categories</a></li>
   </ul>
 
   <h5>Is it really metter to be understandable?</h5>

@@ -92,3 +92,6 @@ class CategoryListView(generic.ListView):
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
+
+class CategoryDetailView(generic.DetailView):
+    model = Category

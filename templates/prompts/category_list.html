@@ -10,7 +10,7 @@
   </form>
   <ul>
   {% for category in category_list %}
-  <a href="#"
+  <a href="{% url 'prompts:category-detail' pk=category.id %}"
      class="badge badge-pill badge-light border float-badge m-1 p-2">
     {{ category.name }}
   </a>

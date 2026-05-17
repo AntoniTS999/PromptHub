@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if category.prompts.all %}
+  {% for prompt in category.prompts.all %}
+  <ul class="list-group">
+  <li class="list-group-item mt-3 p-2"><strong><a href="{% url 'prompts:prompt-detail' pk=prompt.id %}">{{ prompt.title }}</a></strong></li>
+  </ul>
+  {% endfor %}
+  {% else %}
+   <p class="mt-4">The is no prompt for that category</p>
+  {% endif %}
+
+{% endblock %}
