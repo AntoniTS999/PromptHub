@@ -2,12 +2,12 @@
 
 {% block content %}
   <ul class="list-group">
-    <li class="list-group-item list-group-item-info m-3"><a href="{% url 'prompts:prompt-list' %}">{{ num_prompts }} prompts</a></li>
-    <li class="list-group-item list-group-item-info m-3"><a href="{% url 'prompts:author-list' %}">{{ num_authors }} authors</a></li>
-    <li class="list-group-item list-group-item-info m-3"><a href="{% url 'prompts:category-list' %}">{{ num_categories }} categories</a></li>
+    <li class="list-group-item list-group-item-dark m-3"><a class="text-dark small font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:prompt-list' %}">{{ num_prompts }} prompts</a></li>
+    <li class="list-group-item list-group-item-dark m-3"><a class="text-dark small font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:author-list' %}">{{ num_authors }} authors</a></li>
+    <li class="list-group-item list-group-item-dark m-3"><a class="text-dark small font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:category-list' %}">{{ num_categories }} categories</a></li>
   </ul>
 
-  <h5>Is it really metter to be understandable?</h5>
+  <h5 class="font-weight-bold text-dark pl-3">📖 Is it really metter to be understandable?</h5>
   <a class="btn btn-dark translate-middle" href="{% url 'prompts:prompt-list' %}">EXPLORE THE OPENSOURCE PROMPT HUB</a>
 
   <p class="m-4"><em>You have visited that page: {{ num_visits }} time{{ num_visits|pluralize }}</em></p>

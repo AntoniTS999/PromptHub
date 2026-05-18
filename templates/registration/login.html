@@ -11,7 +11,7 @@
   {{ form|crispy }}
     <input class="btn btn-primary" type="submit" value="Log in">
 
-{#     <input type="hidden" name="next" value="{{ next }}">#}
+     <input type="hidden" name="next" value="{{ request.GET.next }}">
 
   </form>
 {% endblock %}

@@ -1,6 +1,8 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 
-from prompts.models import Category
+from prompts.models import Category, Author
 
 
 class SearchPromptForm(forms.Form):
@@ -23,3 +25,14 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Enter the name"}),
         }
+
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if Category.objects.filter(name__icontains=name).exists():
+            raise ValidationError("This category already exists")
+        return name
+
+class AuthorCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = Author
+        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "display_name")

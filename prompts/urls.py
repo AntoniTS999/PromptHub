@@ -3,6 +3,7 @@ from prompts.views import (index, PromptListView,
                            PromptDetailView,
                            AuthorListView,
                            AuthorDetailView,
+                           AuthorCreateView,
                            CategoryListView,
                            CategoryDetailView,
                            CategoryCreateView,
@@ -19,6 +20,7 @@ urlpatterns = [
 
     path("authors/", AuthorListView.as_view(), name="author-list"),
     path("authors/<int:pk>", AuthorDetailView.as_view(), name="author-detail"),
+    path("authors/create/", AuthorCreateView.as_view(), name="author-create"),
 
     path("categories/", CategoryListView.as_view(), name="category-list"),
     path("categories/<int:pk>", CategoryDetailView.as_view(), name="category-detail"),

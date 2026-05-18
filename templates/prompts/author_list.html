@@ -2,7 +2,9 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-	<h1>Authors:</h1>
+	<h1>Authors:
+    <a class="btn btn-dark m-2" style="float: right" href="{% url 'prompts:author-create' %}">add new Author</a>
+  </h1>
   <form class="form-inline" action="">
     {% csrf_token %}
     {{ search_form|crispy }}

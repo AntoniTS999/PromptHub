@@ -21,3 +21,19 @@ body {
 .float-badge:hover {
   animation-play-state: paused;
 }
+
+.page-item.active .page-link {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+.page-link {
+    color: #343a40;
+}
+
+.page-link:hover {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}

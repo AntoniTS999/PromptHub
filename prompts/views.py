@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm
+from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm, AuthorCreationForm
 from prompts.models import Prompt, Author, Category
 from django.views import generic
 from django.db.models.functions import Round
@@ -84,6 +84,11 @@ class AuthorListView(LoginRequiredMixin,generic.ListView):
 class AuthorDetailView(generic.DetailView):
     model = Author
 
+class AuthorCreateView(LoginRequiredMixin,generic.CreateView):
+    model = Author
+    form_class = AuthorCreationForm
+    success_url = reverse_lazy("prompts:author-list")
+    template_name = "prompts/author_form.html"
 
 class CategoryListView(generic.ListView):
     model = Category
