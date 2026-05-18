@@ -1,0 +1,12 @@
+{% extends  "base.html" %}
+
+{% block content %}
+  <p style="color: crimson"><i>Are you sure you want to delete your account?</i></p>
+  <p>It will delete all your data permanently, including prompts</p>
+  <form action="" method="post" novalidate>
+  {% csrf_token %}
+    <input class="btn btn-danger" type="Submit" value="Yes, delete">
+    {% url 'prompts:author-detail' pk=author.id as author %}
+    <a class="btn btn-success" href="{{ next|default:author }}">Cancel</a>
+  </form>
+{% endblock %}

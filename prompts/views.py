@@ -90,6 +90,18 @@ class AuthorCreateView(LoginRequiredMixin,generic.CreateView):
     success_url = reverse_lazy("prompts:author-list")
     template_name = "prompts/author_form.html"
 
+class AuthorUpdateView(LoginRequiredMixin,generic.UpdateView):
+    model = Author
+    form_class = AuthorCreationForm
+
+    def get_success_url(self):
+        return reverse_lazy("prompts:author-detail", kwargs={"pk": self.object.pk})
+
+class AuthorDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = Author
+    success_url = reverse_lazy("prompts:author-list")
+    template_name = "prompts/author_delete.html"
+
 class CategoryListView(generic.ListView):
     model = Category
     paginate_by = 10
