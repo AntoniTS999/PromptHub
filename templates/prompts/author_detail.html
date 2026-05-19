@@ -16,6 +16,7 @@
   {% for prompt in author.prompts.all %}
     <p class="border-left border-dark pl-2 mb-1"><a class="small text-dark" href="{% url 'prompts:prompt-detail' pk=prompt.id %}">{{ prompt.title }}</a></p>
   {% endfor %}
+  <a href="{% url 'prompts:prompt-create' %}" class="btn btn-dark btn-sm">+ Add new prompt</a>
 
   <a class="btn btn-dark mt-4" href="{% url 'prompts:author-update' pk=author.id %}">Update your personal data</a>
 

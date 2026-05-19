@@ -18,6 +18,12 @@
       {% endif %}
 <p> ⚡️ {{ prompt.content|linebreaks }}</p>
 
+{% if user.is_authenticated and prompt.author.id == user.id %}
+  <a class="btn btn-outline-dark btn-sm" href="{% url 'prompts:prompt-update' pk=prompt.id %}">
+    ✏️ Edit prompt
+  </a>
+{% endif %}
+
 </div>
 
   <h4>Comment{{ counted|pluralize }}: {{ counted }}</h4>

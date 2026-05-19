@@ -63,6 +63,9 @@ class PromptCreateView(LoginRequiredMixin,generic.CreateView):
     form_class = PromptCreateForm
     template_name = "prompts/prompt_form.html"
 
+class PromptUpdateView(LoginRequiredMixin,generic.UpdateView):
+    model = Prompt
+    form_class = PromptCreateForm
 
 
 class AuthorListView(LoginRequiredMixin,generic.ListView):
