@@ -1,6 +1,8 @@
 from django.urls import path
-from prompts.views import (index, PromptListView,
+from prompts.views import (index,
+                           PromptListView,
                            PromptDetailView,
+                           PromptCreateView,
                            AuthorListView,
                            AuthorDetailView,
                            AuthorCreateView,
@@ -19,6 +21,7 @@ urlpatterns = [
 
     path("prompts/", PromptListView.as_view(), name="prompt-list"),
     path("prompts/<int:pk>/", PromptDetailView.as_view(), name="prompt-detail"),
+    path("prompts/create/", PromptCreateView.as_view(), name="prompt-create"),
 
     path("authors/", AuthorListView.as_view(), name="author-list"),
     path("authors/<int:pk>", AuthorDetailView.as_view(), name="author-detail"),

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
-from prompts.models import Category, Author
+from prompts.models import Category, Author, Prompt
 
 
 class SearchPromptForm(forms.Form):
@@ -36,3 +36,8 @@ class AuthorCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Author
         fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "display_name")
+
+class PromptCreateForm(forms.ModelForm):
+    class Meta:
+        model = Prompt
+        fields = ("title", "description", "categories")

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.urls import reverse
 from prompthub import settings
 
 
@@ -43,10 +43,14 @@ class Prompt(models.Model):
         preview = self.content[:25]
         return f"{self.title} | {self.author} | {created_at} | {updated_at} | {preview}"
 
+    def get_absolute_url(self):
+        return reverse("prompts:prompt-detail", kwargs={"pk": self.id})
+
     class Meta:
         verbose_name = "Prompt"
         verbose_name_plural = "Prompts"
         ordering = ("-created_at",)
+
 
 class Rating(models.Model):
     VALUE_CHOICES = (

@@ -24,7 +24,7 @@ class AuthorAdmin(UserAdmin):
 class PromptAdmin(admin.ModelAdmin):
     list_display = ["title", "author", "created_at",]
     search_fields = ["title", "categories__name"]
-    list_filter = ["author", "created_at", "categories",]
+    list_filter = ["author", "created_at", "categories"]
 
 
 class RatingAdmin(admin.ModelAdmin):

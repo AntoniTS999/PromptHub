@@ -3,7 +3,8 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm, AuthorCreationForm
+from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm, AuthorCreationForm, \
+    PromptCreateForm
 from prompts.models import Prompt, Author, Category
 from django.views import generic
 from django.db.models.functions import Round
@@ -56,6 +57,11 @@ class PromptDetailView(generic.DetailView):
     def get_queryset(self):
         queryset = Prompt.objects.select_related("author").prefetch_related("categories").annotate(avg_rating=Round(Avg("ratings__value"),1))
         return queryset
+
+class PromptCreateView(LoginRequiredMixin,generic.CreateView):
+    model = Prompt
+    form_class = PromptCreateForm
+    template_name = "prompts/prompt_form.html"
 
 
 
