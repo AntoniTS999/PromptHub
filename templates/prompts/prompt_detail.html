@@ -22,6 +22,11 @@
   <a class="btn btn-outline-dark btn-sm" href="{% url 'prompts:prompt-update' pk=prompt.id %}">
     ✏️ Edit prompt
   </a>
+ {% endif %}
+{% if user.is_authenticated and prompt.author.id == user.id or user.is_superuser %}
+<a class="btn btn-outline-danger btn-sm" style="opacity: 0.7;" href="{% url 'prompts:prompt-delete' pk=prompt.id %}">
+  🗑️ Delete prompt
+</a>
 {% endif %}
 
 </div>

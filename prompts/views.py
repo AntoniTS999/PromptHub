@@ -1,7 +1,7 @@
 from django.db.models import Avg, Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm, AuthorCreationForm, \
     PromptCreateForm
@@ -66,6 +66,12 @@ class PromptCreateView(LoginRequiredMixin,generic.CreateView):
 class PromptUpdateView(LoginRequiredMixin,generic.UpdateView):
     model = Prompt
     form_class = PromptCreateForm
+
+class PromptDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = Prompt
+    success_url = reverse_lazy("prompts:prompt-list")
+    template_name = "prompts/prompt_delete.html"
+
 
 
 class AuthorListView(LoginRequiredMixin,generic.ListView):

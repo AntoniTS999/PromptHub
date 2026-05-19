@@ -13,9 +13,13 @@
   <p class="small text-muted mb-4">Email: <span class="text-dark font-weight-bold">{{ author.email }}</span></p>
 
   <p class="small font-weight-bold text-uppercase text-secondary mb-2">List of prompts:</p>
+{% if author.prompts.all %}
   {% for prompt in author.prompts.all %}
     <p class="border-left border-dark pl-2 mb-1"><a class="small text-dark" href="{% url 'prompts:prompt-detail' pk=prompt.id %}">{{ prompt.title }}</a></p>
   {% endfor %}
+  {% else %}
+  <p><i>Currently, no any prompts added</i></p>
+  {% endif %}
   <a href="{% url 'prompts:prompt-create' %}" class="btn btn-dark btn-sm">+ Add new prompt</a>
 
   <a class="btn btn-dark mt-4" href="{% url 'prompts:author-update' pk=author.id %}">Update your personal data</a>
