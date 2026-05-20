@@ -37,3 +37,20 @@ body {
     border-color: #343a40;
     color: white;
 }
+
+
+
+/*for form*/
+
+#id_content {
+    height: 80px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    resize: none;
+}
+
+#id_content:focus {
+    border-color: #343a40;
+    box-shadow: none;
+}

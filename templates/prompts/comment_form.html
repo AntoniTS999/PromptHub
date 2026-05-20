@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<h5 class="font-weight-bold border-left border-dark pl-3 mt-3">Update comment</h5>
+
+<form action="" method="post" novalidate class="mt-3">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input class="btn btn-dark btn-sm" type="submit" value="✏️ Confirm">
+{% url 'prompts:prompt-detail' pk=comment.prompt.id as prompt %}
+  <a class="btn btn-outline-dark btn-sm ml-2" href="{{ next|default:prompt }}">Cancel</a>
+
+
+</form>
+{% endblock %}

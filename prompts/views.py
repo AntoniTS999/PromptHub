@@ -1,11 +1,12 @@
 from django.db.models import Avg, Q
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
+
 from django.urls import reverse_lazy, reverse
 
 from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm, AuthorCreationForm, \
-    PromptCreateForm
-from prompts.models import Prompt, Author, Category
+    PromptCreateForm, CommentForm
+from prompts.models import Prompt, Author, Category, Comment
 from django.views import generic
 from django.db.models.functions import Round
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -47,21 +48,52 @@ class PromptListView(generic.ListView):
 
 class PromptDetailView(generic.DetailView):
     model = Prompt
+    form_class = CommentForm
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         prompt = self.get_object()
         context = super(PromptDetailView, self).get_context_data(**kwargs)
         context["counted"] = prompt.comments.count()
+        context["form"] = CommentForm()
         return context
 
     def get_queryset(self):
         queryset = Prompt.objects.select_related("author").prefetch_related("categories").annotate(avg_rating=Round(Avg("ratings__value"),1))
         return queryset
 
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse("login"))
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = self.request.user
+            comment.prompt = self.object
+            comment.save()
+            return HttpResponseRedirect(reverse("prompts:prompt-detail", kwargs={"pk": self.object.pk}))
+        context = {
+            "form": form,
+            "prompt": self.object,
+        }
+        return render(request, "prompts/prompt_detail.html", context=context)
+
+
+
+
+
+
+
 class PromptCreateView(LoginRequiredMixin,generic.CreateView):
     model = Prompt
     form_class = PromptCreateForm
     template_name = "prompts/prompt_form.html"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
 
 class PromptUpdateView(LoginRequiredMixin,generic.UpdateView):
     model = Prompt
@@ -159,3 +191,25 @@ class CategoryDeleteView(LoginRequiredMixin,generic.DeleteView):
         context = super().get_context_data(**kwargs)
         context["next"] = self.request.META.get("HTTP_REFERER")
         return context
+
+class CommentUpdateView(LoginRequiredMixin,generic.UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "prompts/comment_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("prompts:prompt-detail", kwargs={"pk": self.object.prompt.id})
+
+class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = Comment
+    template_name = "prompts/comment_delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy("prompts:prompt-detail", kwargs={"pk": self.object.prompt.pk})
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["next"] = self.request.META.get("HTTP_REFERER")
+        return context
+
+

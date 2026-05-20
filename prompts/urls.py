@@ -15,6 +15,8 @@ from prompts.views import (index,
                            CategoryCreateView,
                            CategoryUpdateView,
                            CategoryDeleteView,
+                           CommentUpdateView,
+                           CommentDeleteView,
                            )
 
 
@@ -38,6 +40,10 @@ urlpatterns = [
     path("categories/create/", CategoryCreateView.as_view(), name="category-create"),
     path("categories/<int:pk>/update/", CategoryUpdateView.as_view(), name="category-update"),
     path("categories/<int:pk>/delete/", CategoryDeleteView.as_view(), name="category-delete"),
+
+    path("comments/<int:pk>/update/", CommentUpdateView.as_view(), name="comment-update"),
+    path("comments/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"),
+
 ]
 
 app_name = "prompts"

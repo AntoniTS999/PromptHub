@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
-from prompts.models import Category, Author, Prompt
+from prompts.models import Category, Author, Prompt, Comment
 
 
 class SearchPromptForm(forms.Form):
@@ -40,4 +41,22 @@ class AuthorCreationForm(UserCreationForm):
 class PromptCreateForm(forms.ModelForm):
     class Meta:
         model = Prompt
-        fields = ("title", "description", "categories")
+        fields = ("title", "description", "content", "categories")
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("content",)
+        labels = {
+            "content": "",
+        }
+        widgets = {
+            "content": forms.Textarea(attrs={"placeholder": "Place your comment here"}),
+        }
+
+    def clean_content(self):
+        content = self.cleaned_data["content"]
+        if not content:
+            raise ValidationError("The field couldn't be empty")
+        return content
