@@ -54,8 +54,10 @@
 
     <p class="small text-secondary font-weight-bold">{{ comment.content }}</p>
 
-{% if user.is_authenticated and comment.user.id == user.id or user.is_superuser %}
+{% if user.is_authenticated and comment.user.id == user.id %}
   <a class="btn btn-outline-dark btn-sm" href="{% url 'prompts:comment-update' pk=comment.id %}">✏️ Edit</a>
+  {% endif %}
+  {% if user.is_authenticated and comment.user.id == user.id or user.is_superuser %}
   <a class="btn btn-outline-danger btn-sm ml-1" style="opacity: 0.7;" href="{% url 'prompts:comment-delete' pk=comment.id %}">🗑️ Delete</a>
 {% endif %}
 

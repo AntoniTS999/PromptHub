@@ -80,11 +80,6 @@ class PromptDetailView(generic.DetailView):
         return render(request, "prompts/prompt_detail.html", context=context)
 
 
-
-
-
-
-
 class PromptCreateView(LoginRequiredMixin,generic.CreateView):
     model = Prompt
     form_class = PromptCreateForm
@@ -106,7 +101,7 @@ class PromptDeleteView(LoginRequiredMixin,generic.DeleteView):
 
 
 
-class AuthorListView(LoginRequiredMixin,generic.ListView):
+class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 2
 
@@ -131,7 +126,7 @@ class AuthorListView(LoginRequiredMixin,generic.ListView):
 class AuthorDetailView(generic.DetailView):
     model = Author
 
-class AuthorCreateView(LoginRequiredMixin,generic.CreateView):
+class AuthorCreateView(generic.CreateView):
     model = Author
     form_class = AuthorCreationForm
     success_url = reverse_lazy("prompts:author-list")

@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
@@ -39,9 +38,12 @@ class AuthorCreationForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "display_name")
 
 class PromptCreateForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), required=False,
+                                                widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = Prompt
         fields = ("title", "description", "content", "categories")
+
 
 
 class CommentForm(forms.ModelForm):
