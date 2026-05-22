@@ -13,9 +13,9 @@
   {% endfor %}
 <div class="shadow p-3 mb-5 bg-white rounded">
 {% if prompt.avg_rating %}
-      <p style="float: right"><a href="#">⭐️ {{ prompt.avg_rating }}</a></p>
+      <p class="mb-0" style="float: right"><a href="{% url 'prompts:rating-create' pk=prompt.id %}">⭐️{{ prompt.avg_rating }}</a></p>
       {% else %}
-      <p style="float: right"><a href="#">⭐️ Be the first one to rate</a></p>
+      <p class="mb-0" style="float: right"><a href="{% url 'prompts:rating-create' pk=prompt.id %}">⭐️ Be the first one to rate</a></p>
       {% endif %}
 <p> ⚡️ {{ prompt.content|linebreaks }}</p>
 
@@ -63,9 +63,6 @@
 
   </div>
   {% endfor %}
-
-  {% else %}
-  <p><i>No comments yet</i></p>
 
 
   {% endif %}

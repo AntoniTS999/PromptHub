@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="mt-4">
+
+{% if not already_rated %}
+<h5 class="font-weight-bold border-left border-dark pl-3">Rate this prompt</h5>
+  <form action="" method="post" class="mt-3">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark btn-sm" type="submit" value="⭐ Submit rating">
+    {% else %}
+  <p class="text-muted small">You have already rated this prompt</p>
+{% endif %}
+    {% url 'prompts:prompt-detail' pk=prompt.id as prompt %}
+    <a class="btn btn-outline-dark btn-sm ml-2" href="{{ next|default:prompt }}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

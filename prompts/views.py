@@ -1,12 +1,14 @@
+from multiprocessing import context
+
 from django.db.models import Avg, Q
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.urls import reverse_lazy, reverse
 
 from prompts.forms import SearchPromptForm, SearchAuthorForm, SearchCategoryForm, CategoryForm, AuthorCreationForm, \
-    PromptCreateForm, CommentForm
-from prompts.models import Prompt, Author, Category, Comment
+    PromptCreateForm, CommentForm, RatingForm
+from prompts.models import Prompt, Author, Category, Comment, Rating
 from django.views import generic
 from django.db.models.functions import Round
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -208,3 +210,32 @@ class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
         return context
 
 
+class RatingCreateView(LoginRequiredMixin,generic.CreateView):
+    model = Rating
+    form_class = RatingForm
+
+    def get_success_url(self):
+        return reverse_lazy("prompts:prompt-detail", kwargs={"pk": self.kwargs["pk"]})
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["next"] = self.request.META.get("HTTP_REFERER")
+        context["already_rated"] = Rating.objects.filter(user=self.request.user, prompt_id = self.kwargs["pk"]).exists()
+        context["form"] = RatingForm()
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        prompt = get_object_or_404(Prompt, pk=self.kwargs["pk"])
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.prompt = prompt
+            rating.user = request.user
+            rating.save()
+            return HttpResponseRedirect(reverse_lazy("prompts:prompt-detail", kwargs={"pk": prompt.id}))
+        context = {
+            "form": form,
+            "prompt": prompt,
+        }
+        return render(request, "prompts/rating_form.html", context=context)

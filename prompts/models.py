@@ -37,7 +37,7 @@ class Prompt(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        date_format = "%m/%d/%Y %I:%M:%S"
+        date_format = "%m/%d/%Y %H:%M:%S"
         created_at = self.created_at.strftime(date_format)
         updated_at = self.updated_at.strftime(date_format)
         preview = self.content[:25]

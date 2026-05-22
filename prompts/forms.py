@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
-from prompts.models import Category, Author, Prompt, Comment
+from prompts.models import Category, Author, Prompt, Comment, Rating
 
 
 class SearchPromptForm(forms.Form):
@@ -62,3 +62,8 @@ class CommentForm(forms.ModelForm):
         if not content:
             raise ValidationError("The field couldn't be empty")
         return content
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ("value",)
