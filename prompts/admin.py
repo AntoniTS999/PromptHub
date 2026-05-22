@@ -29,6 +29,7 @@ class PromptAdmin(admin.ModelAdmin):
 
 class RatingAdmin(admin.ModelAdmin):
     list_display = ["value"]
+
 admin.site.register(Rating, RatingAdmin)
 
 @admin.register(Comment)

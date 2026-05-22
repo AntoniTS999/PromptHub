@@ -55,10 +55,13 @@ class ModelsTest(TestCase):
             author=author,
             title="testTitle",
             content="lorem50" * 50,
-            created_at=datetime(2025,5, 21, 15, 33, 00),
+            created_at=datetime(2025, 5, 21, 15, 33, 00),
             updated_at=datetime(2026, 5, 22, 14, 38, 25),
         )
-        self.assertEqual(str(prompt), f"{prompt.title} | {prompt.author} | 05/21/2025 15:33:00 | 05/22/2026 14:38:25 | {prompt.content[:25]}")
+        self.assertEqual(
+            str(prompt),
+            f"{prompt.title} | {prompt.author} | 05/21/2025 15:33:00 | 05/22/2026 14:38:25 | {prompt.content[:25]}",
+        )
 
     def test_rating_str(self):
         user = get_user_model().objects.create_user(
@@ -69,9 +72,8 @@ class ModelsTest(TestCase):
             author=user,
             title="testTitle",
             content="lorem50" * 50,
-            created_at=datetime(2025,5, 21, 15, 33, 00),
+            created_at=datetime(2025, 5, 21, 15, 33, 00),
             updated_at=datetime(2026, 5, 22, 14, 38, 25),
-
         )
         rating = Rating(
             prompt=prompt,
@@ -79,4 +81,3 @@ class ModelsTest(TestCase):
             value=5,
         )
         self.assertEqual(str(rating), str(rating.value))
-
