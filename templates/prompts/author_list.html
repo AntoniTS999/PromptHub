@@ -8,8 +8,12 @@
     {{ search_form|crispy }}
     <input type="submit" value="Search" class="btn btn-secondary">
   </form>
-  {% for author in author_list.all %}
-    <hr>
-    <p class="alert alert-secondary"><a href="{% url 'prompts:author-detail' pk=author.id %}">{{ author }}: {{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}</a></p>
-  {% endfor %}
+{% for author in author_list %}
+  <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+    <a class="text-dark font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:author-detail' pk=author.id %}">
+      👤 {{ author }}
+    </a>
+    <span class="badge badge-dark">{{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}</span>
+  </div>
+{% endfor %}
 {% endblock %}
