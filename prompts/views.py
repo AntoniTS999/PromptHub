@@ -131,7 +131,7 @@ class AuthorDetailView(generic.DetailView):
 class AuthorCreateView(generic.CreateView):
     model = Author
     form_class = AuthorCreationForm
-    success_url = reverse_lazy("prompts:author-list")
+    success_url = reverse_lazy("login")
     template_name = "prompts/author_form.html"
 
 class AuthorUpdateView(LoginRequiredMixin,generic.UpdateView):
