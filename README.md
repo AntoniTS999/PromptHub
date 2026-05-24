@@ -42,14 +42,22 @@ env\Scripts\activate
 pip install -r requirements.txt
 4. Apply database migrations
 python manage.py migrate
-5. Create a superuser
+5. Load test data (optional)
+
+If you want to run the project with sample data for testing purposes, you can load the provided JSON fixture:
+
+python manage.py loaddata data.json
+
+⚠️ Make sure the file data.json is located in your project directory or a valid fixtures path.
+
+6. Create a superuser
 python manage.py createsuperuser
 
 ⚠️ Default development credentials (only for local testing):
 Username: admin
 Password: 123456789
 
-6. Run development server
+7. Run development server
 python manage.py runserver
 🌐 Access the app
 
