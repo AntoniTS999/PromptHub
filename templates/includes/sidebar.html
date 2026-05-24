@@ -1,26 +1,34 @@
 {% block sidebar %}
 <div class="d-flex flex-column pt-3" style="min-height: 100vh; position: sticky; top: 0;">
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a href="{% url 'prompts:index' %}" class="nav-link text-dark">🏠 Home</a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'prompts:prompt-list' %}" class="nav-link text-dark">📄 Prompts</a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'prompts:category-list' %}" class="nav-link text-dark">🗂 Categories</a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'prompts:author-list' %}" class="nav-link text-dark">👥 Authors</a>
-    </li>
-  </ul>
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a href="{% url 'prompts:index' %}" class="nav-link text-dark font-weight-bold px-0">
+      <i class="ti ti-home mr-2"></i> Home
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'prompts:prompt-list' %}" class="nav-link text-dark font-weight-bold px-0">
+      <i class="ti ti-file-text mr-2"></i> Prompts
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'prompts:category-list' %}" class="nav-link text-dark font-weight-bold px-0">
+      <i class="ti ti-layout-grid mr-2"></i> Categories
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'prompts:author-list' %}" class="nav-link text-dark font-weight-bold px-0">
+      <i class="ti ti-users mr-2"></i> Authors
+    </a>
+  </li>
+</ul>
 
   <div class="mt-auto pt-3 border-top pb-3">
     {% if user.is_authenticated %}
       <p class="px-3 font-weight-bold text-center"><a class="text-dark" href="{% url 'prompts:author-detail' pk=user.id %}">{{ user }}</a></p>
       <form action="{% url 'logout' %}" method="post">
       {% csrf_token %}
-      <button class="text-danger btn btn-dark w-100" type="submit">Logout</button>
+      <button class="text-white btn btn-dark w-100" type="submit">Logout</button>
       </form>
     {% else %}
       <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-dark btn-sm">Login</a>

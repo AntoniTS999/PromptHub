@@ -1,14 +1,237 @@
-{% extends "base.html" %}
+{% extends 'layouts/base-presentation.html' %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} index-page {% endblock body_class %}
 
 {% block content %}
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-dark m-3"><a class="text-dark small font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:prompt-list' %}">{{ num_prompts }} prompts</a></li>
-    <li class="list-group-item list-group-item-dark m-3"><a class="text-dark small font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:author-list' %}">{{ num_authors }} authors</a></li>
-    <li class="list-group-item list-group-item-dark m-3"><a class="text-dark small font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:category-list' %}">{{ num_categories }} categories</a></li>
-  </ul>
 
-  <h5 class="font-weight-bold text-dark pl-3">📖 Is it really metter to be understandable?</h5>
-  <a class="btn btn-dark translate-middle" href="{% url 'prompts:prompt-list' %}">EXPLORE THE OPENSOURCE PROMPT HUB</a>
+  <header class="header-2">
+    <div class="page-header section-height-75 relative" style="background-image: url('{{ ASSETS_ROOT }}/img/PromptHub/new.png')">
 
-  <p class="m-4"><em>You have visited that page: {{ num_visits }} time{{ num_visits|pluralize }}</em></p>
-{% endblock %}
+      <div class="container">
+  <div class="row">
+    <div class="col-lg-7 text-center mx-auto">
+      <div style="background: rgba(0,0,0,0.55); backdrop-filter: blur(8px); border-radius: 16px; padding: 2.5rem;">
+        <h1 style="font-size: 4.5rem; font-weight: 700; letter-spacing: -1px;" class="text-white">
+          PromptHub
+        </h1>
+        <p style="font-size: 1.5rem; letter-spacing: 0.05em; opacity: 0.85;" class="text-white mt-3">
+          Discover. Create. Share.
+        </p>
+        <p style="font-size: 1rem; opacity: 0.6;" class="text-white">
+          Platform for storing, discovering, and sharing AI prompts.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <section class="pt-3 pb-0 mb-0" id="count-stats">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+          <div class="row">
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-secondary"><span id="state1" countTo="70">{{ num_prompts }}</span>+</h1>
+                <h5 class="mt-3"><a href="{% url 'prompts:prompt-list' %}">Prompts</a></h5>
+                <p class="text-sm">Ready-to-use AI prompts</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-secondary"> <span id="state2" countTo="15">{{ num_categories }}</span>+</h1>
+                <h5 class="mt-3"><a href="{% url 'prompts:category-list' %}">Categories</a></h5>
+                <p class="text-sm">Explore by topic</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 text-center">
+                <h1 class="text-secondary" id="state3" countTo="4">{{ num_authors }}</h1>
+                <h5 class="mt-3"><a href="{% url 'prompts:author-list' %}">Authors</a></h5>
+                <p class="text-sm">Top prompt creators</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ABOUT -->
+<section class="py-5 px-4 text-center" id="about">
+  <p class="text-uppercase text-muted font-weight-bold small mb-2" style="letter-spacing: .1em; font-size: 11px;">
+    About the project
+  </p>
+  <h2 class="font-weight-bold mb-3" style="font-size: 2rem; letter-spacing: -.02em; line-height: 1.2;">
+    What is PromptHub?
+  </h2>
+  <p class="text-muted mb-0 mx-auto text-center" style="font-size: 1rem; line-height: 1.8; max-width: 540px;">
+    PromptHub is a community-driven platform built with Django. It lets anyone create an account, publish AI prompts, organize them by category, rate others' work, and leave comments. Think of it as GitHub — but for prompts.
+  </p>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <span class="feature-icon">
+            <i class="ti ti-file-text"></i>
+          </span>
+          <h5>Store Prompts</h5>
+          <p>Write, save and organize your best AI prompts. Add descriptions and categories.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <span class="feature-icon">
+            <i class="ti ti-search"></i>
+          </span>
+          <h5>Discover</h5>
+          <p>Search and browse prompts from the community. Filter by category, author or rating.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <span class="feature-icon">
+            <i class="ti ti-star"></i>
+          </span>
+          <h5>Rate & Review</h5>
+          <p>Rate prompts from 1–5 stars and leave comments. Help the best content rise to the top.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <span class="feature-icon">
+            <i class="ti ti-users"></i>
+          </span>
+          <h5>Author Profiles</h5>
+          <p>Every author has a public profile showing their prompts and activity.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <span class="feature-icon">
+            <i class="ti ti-layout-grid"></i>
+          </span>
+          <h5>Categories</h5>
+          <p>Prompts organized by categories — coding, writing, marketing, and more.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="feature-card">
+          <span class="feature-icon">
+            <i class="ti ti-lock"></i>
+          </span>
+          <h5>Secure Accounts</h5>
+          <p>Full auth system — register, login, update your profile or delete your account.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-5" id="how-section">
+  <div class="container">
+
+    <div class="row mb-5 text-center">
+      <div class="col-12">
+        <p class="text-uppercase text-muted font-weight-bold small mb-2" style="letter-spacing: .1em; font-size: 11px;">
+          How it works
+        </p>
+        <h2 class="font-weight-bold mb-0" style="font-size: 2rem; letter-spacing: -.02em; line-height: 1.2;">
+          Simple by design.
+        </h2>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <p class="display-4 font-weight-bold text-muted mb-2">01</p>
+        <p class="font-weight-bold mb-1">Create account</p>
+        <p class="text-muted small mb-0">Register with a username, display name and email. Takes 30 seconds.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <p class="display-4 font-weight-bold text-muted mb-2">02</p>
+        <p class="font-weight-bold mb-1">Add a prompt</p>
+        <p class="text-muted small mb-0">Write your prompt, add a description and assign categories.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <p class="display-4 font-weight-bold text-muted mb-2">03</p>
+        <p class="font-weight-bold mb-1">Share it</p>
+        <p class="text-muted small mb-0">Your prompt is instantly public and discoverable by the community.</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <p class="display-4 font-weight-bold text-muted mb-2">04</p>
+        <p class="font-weight-bold mb-1">Get feedback</p>
+        <p class="text-muted small mb-0">Receive ratings and comments from other users.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!--TECH STACK-->
+  <section class="py-5" id="tech-stack-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+
+        <p class="text-uppercase text-muted font-weight-bold small mb-2" style="letter-spacing: .1em; font-size: 11px;">
+          Tech stack
+        </p>
+        <h2 class="font-weight-bold mb-3" style="font-size: 2rem; letter-spacing: -.02em; line-height: 1.2;">
+          Built with Django.
+        </h2>
+        <p class="text-muted mb-4" style="font-size: 0.95rem; line-height: 1.8;">
+          Django application with class-based views, custom user model, and Bootstrap 4 frontend.
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center" style="gap: .5rem;">
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Django 6</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Python 3.12</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Bootstrap 4</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">SQLite</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Crispy Forms</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Class-based Views</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">AbstractUser</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Pagination</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Django ORM</span>
+          <span class="badge badge-pill badge-light border text-muted px-3 py-2">Unit Tests</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

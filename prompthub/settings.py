@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -66,6 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'prompts.context_processors.cfg_assets_root',
             ],
         },
     },
@@ -132,3 +133,5 @@ AUTH_USER_MODEL = "prompts.Author"
 LOGIN_REDIRECT_URL = "prompts:index"
 
 INTERNAL_IPS = ["127.0.0.1"]
+
+ASSETS_ROOT = "/static/assets"

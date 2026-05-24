@@ -2,13 +2,14 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1 class="display-2 alert alert-dark">Categories</h1>
+
+<h1 class="font-weight-bold mb-3 mt-1" style="font-size: 2rem; letter-spacing: -.02em;">Categories</h1>
   <form action="" method="get" class="form-inline pb-3">
     {% csrf_token %}
     {{ search_form|crispy }}
     <input class="btn btn-secondary" type="submit" value="🔎">
   </form>
-  <ul><a class="btn btn-info" style="float: right" href="{% url 'prompts:category-create' %}">Add New</a>
+  <ul><a class="btn btn-dark" style="float: right" href="{% url 'prompts:category-create' %}">Add New</a>
   {% for category in category_list %}
   <li class="badge ">
     <a class="badge-pill badge-light border float-badge m-1 p-2" href="{% url 'prompts:category-detail' pk=category.id %}">

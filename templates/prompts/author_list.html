@@ -3,15 +3,15 @@
 
 {% block content %}
 	<h1>Authors: </h1>
-  <form class="form-inline" action="">
+  <form class="form-inline mb-5" action="">
     {% csrf_token %}
     {{ search_form|crispy }}
-    <input type="submit" value="Search" class="btn btn-secondary">
+    <input type="submit" value="🔎" class="btn btn-secondary">
   </form>
 {% for author in author_list %}
-  <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+  <div class="d-flex align-items-center justify-content-between border-bottom py-2 mb-3">
     <a class="text-dark font-weight-bold" style="text-decoration: none;" href="{% url 'prompts:author-detail' pk=author.id %}">
-      👤 {{ author }}
+      <i class="ti ti-user"></i> {{ author }}
     </a>
     <span class="badge badge-dark">{{ author.prompts.count }} prompt{{ author.prompts.count|pluralize }}</span>
   </div>
