@@ -10,9 +10,12 @@
   <form action="" method="post" novalidate class="mt-3 mb-3">
     {% csrf_token %}
     {{ form|crispy }}
+    <a class="btn btn-dark mb-5" href="{% url 'prompts:category-create' %}?next={{ request.path }}" target="_blank">+ Add new category</a>
+    <div>
     <input class="btn btn-dark btn-sm" type="submit" value="✅ Submit">
+
     {% url 'prompts:prompt-list' as prompts %}
-    <a class="btn btn-outline-dark btn-sm ml-2" href="{{ next|default:prompts }}">Cancel</a>
+    <a class="btn btn-outline-dark btn-sm ml-2" href="{{ next|default:prompts }}">Cancel</a></div>
   </form>
 </div>
 {% endblock %}

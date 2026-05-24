@@ -11,11 +11,9 @@ class SearchTest(TestCase):
         self.author = Author.objects.create_user(
             username="username_author",
             password="123test123",
-            display_name="NameDisplay"
+            display_name="NameDisplay",
         )
-        self.category = Category.objects.create(
-            name="Test Category"
-        )
+        self.category = Category.objects.create(name="Test Category")
         self.prompt = Prompt.objects.create(
             author=self.author,
             title="Check_Title",
@@ -31,7 +29,8 @@ class SearchTest(TestCase):
         Test that the search category by name works correctly.
         :return:
         """
-        response = self.client.get(reverse("prompts:category-list") + "?name=Test")
+        response = self.client.get(reverse("prompts:category-list")
+                                   + "?name=Test")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.category.name)
 
@@ -40,7 +39,8 @@ class SearchTest(TestCase):
         Test that the search prompt by title works correctly.
         :return:
         """
-        response = self.client.get(reverse("prompts:prompt-list") + "?title=Title")
+        response = self.client.get(reverse("prompts:prompt-list")
+                                   + "?title=Title")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.prompt.title)
 
@@ -49,7 +49,9 @@ class SearchTest(TestCase):
         Test that the search author by display_name works correctly.
         :return:
         """
-        response = self.client.get(reverse("prompts:author-list") + "?display_name=Display")
+        response = self.client.get(
+            reverse("prompts:author-list") + "?display_name=Display"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.author.display_name)
 
@@ -58,7 +60,8 @@ class SearchTest(TestCase):
             username="username_author_2",
             password="123test",
         )
-        response = self.client.get(reverse("prompts:author-list") + "?username=user")
+        response = self.client.get(reverse("prompts:author-list")
+                                   + "?username=user")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.author_2.username)
 
@@ -67,6 +70,8 @@ class SearchTest(TestCase):
         Test that no result for display_name works correctly on search.
         :return:
         """
-        response = self.client.get(reverse("prompts:author-list") + "?display_name=Piotr")
+        response = self.client.get(
+            reverse("prompts:author-list") + "?display_name=Piotr"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertQuerySetEqual(response.context["author_list"], [])

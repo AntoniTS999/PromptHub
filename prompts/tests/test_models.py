@@ -18,8 +18,10 @@ class ModelsTest(TestCase):
 
     def test_author_with_display_name_str(self):
         """
-        - test if author with display name string is correct (should show author.display_name)
-        - test if author password is correctly hashed and verifiable
+        - test if author with display name string is correct
+        (should show author.display_name)
+        - test if author password is correctly
+        hashed and verifiable
         :return:
         """
         username = "test"
@@ -44,7 +46,10 @@ class ModelsTest(TestCase):
 
     def test_prompt_str(self):
         """
-        test if prompt string is correct: especially preview for content with 25 symbols and format of creation/update datetime
+        test if prompt string is correct:
+        especially preview for content with
+        25 symbols and format of creation/update
+        datetime
         :return:
         """
         author = get_user_model().objects.create_user(
@@ -60,7 +65,11 @@ class ModelsTest(TestCase):
         )
         self.assertEqual(
             str(prompt),
-            f"{prompt.title} | {prompt.author} | 05/21/2025 15:33:00 | 05/22/2026 14:38:25 | {prompt.content[:25]}",
+            f"{prompt.title} "
+            f"| {prompt.author} "
+            f"| 05/21/2025 15:33:00 "
+            f"| 05/22/2026 14:38:25 "
+            f"| {prompt.content[:25]}",
         )
 
     def test_rating_str(self):

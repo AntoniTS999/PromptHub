@@ -6,15 +6,15 @@
   </h1>
   <div class="d-flex" style="float: right">
     {% if user.is_authenticated and user.is_superuser %}
-        <a  class="btn btn-warning mr-2 mt-3" href="{% url 'prompts:category-update' pk=category.id %}">UPDATE CATEGORY</a>
-        <a style="float: right" class="btn btn-danger mt-3" href="{% url 'prompts:category-delete' pk=category.id %}">DELETE</a>
+        <a  class="btn btn-outline-secondary btn-sm mr-2 mt-3" href="{% url 'prompts:category-update' pk=category.id %}">UPDATE CATEGORY</a>
+        <a style="float: right" class="btn btn-dark btn-sm mt-3" href="{% url 'prompts:category-delete' pk=category.id %}">DELETE</a>
       {% endif %}
   </div>
 
   {% if category.prompts.all %}
   {% for prompt in category.prompts.all %}
   <ul class="list-group">
-  <li class="list-group-item mt-3 p-2"><strong><a href="{% url 'prompts:prompt-detail' pk=prompt.id %}">{{ prompt.title }}</a></strong></li>
+  <li class="list-group-item list-group-item-action list-group-item-dark" style="background-color: #000;"><strong><a class="text-white" style="text-decoration: none;"  href="{% url 'prompts:prompt-detail' pk=prompt.id %}">{{ prompt.title }}</a></strong></li>
   </ul>
   {% endfor %}
   {% else %}

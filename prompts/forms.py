@@ -6,14 +6,31 @@ from prompts.models import Category, Author, Prompt, Comment, Rating
 
 
 class SearchPromptForm(forms.Form):
-    title = forms.CharField(max_length=100, required=False,
-        widget=forms.TextInput(attrs={"placeholder": "Search"}), label="")
+    title = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "Search"}),
+        label="",
+    )
+
 
 class SearchAuthorForm(forms.Form):
-    display_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={"placeholder": "Search by name"}), label="")
+    display_name = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "Search by name"}),
+        label="",
+    )
+
 
 class SearchCategoryForm(forms.Form):
-    name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={"placeholder": "Search by name"}), label="")
+    name = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "Search by name"}),
+        label="",
+    )
+
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -32,18 +49,28 @@ class CategoryForm(forms.ModelForm):
             raise ValidationError("This category already exists")
         return name
 
+
 class AuthorCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Author
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "display_name")
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "email",
+            "display_name",
+        )
+
 
 class PromptCreateForm(forms.ModelForm):
-    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), required=False,
-                                                widget=forms.CheckboxSelectMultiple)
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+    )
+
     class Meta:
         model = Prompt
         fields = ("title", "description", "content", "categories")
-
 
 
 class CommentForm(forms.ModelForm):
@@ -62,6 +89,7 @@ class CommentForm(forms.ModelForm):
         if not content:
             raise ValidationError("The field couldn't be empty")
         return content
+
 
 class RatingForm(forms.ModelForm):
     class Meta:

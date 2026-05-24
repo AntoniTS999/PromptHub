@@ -43,7 +43,7 @@ body {
 
 
 
-/*for form*/
+/*for form prompt textarea field*/
 
 #id_content {
     height: 80px;
@@ -56,4 +56,9 @@ body {
 #id_content:focus {
     border-color: #343a40;
     box-shadow: none;
+}
+ /*for focus on form, rewrite ui soft design*/
+.form-control:focus {
+  border-color: #344767 !important;
+  box-shadow: 0 0 0 2px rgba(52, 70, 103, 0.15) !important;
 }

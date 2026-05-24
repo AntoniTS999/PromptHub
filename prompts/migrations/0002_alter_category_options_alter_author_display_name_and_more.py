@@ -17,7 +17,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="author",
             name="display_name",
-            field=models.CharField(blank=True, max_length=100, null=True, unique=True),
+            field=models.CharField(blank=True,
+                                   max_length=100,
+                                   null=True,
+                                   unique=True),
         ),
         migrations.AlterUniqueTogether(
             name="comment",

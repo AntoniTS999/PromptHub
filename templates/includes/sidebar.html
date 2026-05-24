@@ -32,6 +32,7 @@
       </form>
     {% else %}
       <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-dark btn-sm">Login</a>
+
 <span class="text-muted mx-1">or</span>
 <a href="{% url 'prompts:author-create' %}" class="btn btn-outline-dark btn-sm">Register</a>
     {% endif %}

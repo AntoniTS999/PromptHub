@@ -13,8 +13,12 @@ class Category(models.Model):
     class Meta:
         ordering = ("name",)
 
+
 class Author(AbstractUser):
-    display_name = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    display_name = models.CharField(max_length=100,
+                                    blank=True,
+                                    null=True,
+                                    unique=True)
 
     def get_display_name(self):
         return self.display_name or self.username
@@ -27,11 +31,19 @@ class Author(AbstractUser):
         verbose_name_plural = "Authors"
         ordering = ("username",)
 
+
 class Prompt(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
-    categories = models.ManyToManyField(Category, related_name="prompts", blank=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="prompts", on_delete=models.CASCADE)
+    description = models.TextField(null=True,
+                                   blank=True)
+    categories = models.ManyToManyField(Category,
+                                        related_name="prompts",
+                                        blank=True)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="prompts",
+        on_delete=models.CASCADE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
@@ -41,7 +53,11 @@ class Prompt(models.Model):
         created_at = self.created_at.strftime(date_format)
         updated_at = self.updated_at.strftime(date_format)
         preview = self.content[:25]
-        return f"{self.title} | {self.author} | {created_at} | {updated_at} | {preview}"
+        return (f"{self.title} "
+                f"| {self.author} "
+                f"| {created_at} "
+                f"| {updated_at} "
+                f"| {preview}")
 
     def get_absolute_url(self):
         return reverse("prompts:prompt-detail", kwargs={"pk": self.id})
@@ -61,8 +77,14 @@ class Rating(models.Model):
         (5, "5"),
     )
     value = models.IntegerField(choices=VALUE_CHOICES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="ratings", on_delete=models.CASCADE)
-    prompt = models.ForeignKey(Prompt, related_name="ratings", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="ratings",
+        on_delete=models.CASCADE
+    )
+    prompt = models.ForeignKey(Prompt,
+                               related_name="ratings",
+                               on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("user", "prompt")
@@ -70,11 +92,19 @@ class Rating(models.Model):
     def __str__(self):
         return str(self.value)
 
+
 class Comment(models.Model):
     content = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="comments", on_delete=models.CASCADE)
-    prompt = models.ForeignKey(Prompt, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="comments",
+        on_delete=models.CASCADE
+    )
+    prompt = models.ForeignKey(
+        Prompt, related_name="comments",
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         date_format = "%m/%d/%Y %I:%M %p"
@@ -85,4 +115,3 @@ class Comment(models.Model):
         verbose_name = "Comment"
         verbose_name_plural = "Comments"
         ordering = ("-created_at",)
-

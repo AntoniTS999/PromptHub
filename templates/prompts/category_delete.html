@@ -6,8 +6,8 @@
   <p><i>It couldn't be recovered!</i></p>
   <form action="" method="post">
   {% csrf_token %}
-    <input class="btn btn-danger" type="submit" value="Yes, delete">
+    <input class="btn btn-dark btn-sm" type="submit" value="Yes, delete">
     {% url 'prompts:category-detail' pk=category.id as category %}
-    <a class="btn btn-success" href="{{ next|default:category }}">Cancel</a>
+    <a class="btn btn-outline-dark btn-sm" href="{{ next|default:category }}">Cancel</a>
   </form>
 {% endblock %}

@@ -5,8 +5,8 @@
   <p>It will delete all data permanently, including prompts</p>
   <form action="" method="post" novalidate>
   {% csrf_token %}
-    <input class="btn btn-danger" type="Submit" value="Yes, delete">
+    <input class="btn btn-dark btn-sm" type="Submit" value="Yes, delete">
     {% url 'prompts:author-detail' pk=author.id as author %}
-    <a class="btn btn-success" href="{{ next|default:author }}">Cancel</a>
+    <a class="btn btn-outline-dark btn-sm" href="{{ next|default:author }}">Cancel</a>
   </form>
 {% endblock %}

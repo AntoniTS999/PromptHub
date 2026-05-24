@@ -5,8 +5,8 @@
   <p>It will be deleted permanently</p>
   <form action="" method="post" novalidate>
   {% csrf_token %}
-    <input class="btn btn-danger" type="Submit" value="Yes, delete">
+    <input class="btn btn-dark btn-sm" type="Submit" value="Yes, delete">
     {% url 'prompts:prompt-detail' pk=prompt.id as prompt %}
-    <a class="btn btn-success" href="{{ next|default:prompt }}">Cancel</a>
+    <a class="btn btn-outline-dark btn-sm" href="{{ next|default:prompt }}">Cancel</a>
   </form>
 {% endblock %}
