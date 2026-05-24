@@ -1,18 +1,21 @@
 # PromptHub
-
 📌 PromptHub
 
 PromptHub is a platform for storing, discovering, and sharing AI prompts.
 
 🚀 Features
-Superuser Controls
+* Superuser Controls
 Only a superuser can manage categories (create, update, delete), and can also delete any prompt or user account. This ensures full administrative control and content moderation.
-User Profile Management
+* User Profile Management
 Users can access a personal panel from the sidebar to update or delete their profile.
-Prompt Management
+* Prompt Management
 Authors can update their own prompts. Prompts can be deleted either by their author or by a superuser.
-Ratings System
-Users can rate prompts only from the detailed prompt view. Each user can rate a given prompt only once to maintain data integrity.
+* Ratings System
+Users can rate prompts only from the detailed prompt view. Each user can rate a given prompt only once.
+* Comments System
+Users can comment on prompts, including comments on other users’ prompts. This allows discussion and feedback within the community.
+
+
 🛠️ Technologies Used
 Django 6.0.5
 Python 3.12+
@@ -24,6 +27,8 @@ Custom User Model (AbstractUser)
 Django ORM
 Pagination
 Unit Tests
+
+
 ⚙️ Setup Instructions
 
 Follow these steps to run the project locally:
@@ -48,7 +53,7 @@ If you want to run the project with sample data for testing purposes, you can lo
 
 python manage.py loaddata data.json
 
-⚠️ Make sure the file data.json is located in your project directory or a valid fixtures path.
+⚠️ Make sure the file data.json is located in your project directory or inside a valid fixtures path.
 
 6. Create a superuser
 python manage.py createsuperuser
@@ -59,11 +64,15 @@ Password: 123456789
 
 7. Run development server
 python manage.py runserver
+
+
 🌐 Access the app
 
 Open in browser:
 
 http://127.0.0.1:8000/
+
+
 🔐 Security Notes
 Only superusers can manage categories.
 Users can only edit or delete their own profiles.
@@ -71,6 +80,9 @@ Authors can manage their own prompts.
 Both authors and superusers can delete prompts.
 Ratings are restricted to one per user per prompt.
 Ratings are only available from the prompt detail page.
+Users can comment on prompts and interact with other users via comments.
+
+
 📌 Notes
 
 This project uses a role-based access system to ensure secure and structured interaction between users, authors, and administrators.
