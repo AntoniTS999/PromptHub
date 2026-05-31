@@ -23,7 +23,8 @@ Users can comment on prompts, including comments on other users’ prompts. This
 Django 6.0.5  
 Python 3.12+  
 Bootstrap 4  
-SQLite  
+SQLite - development  
+PostgreSQL (Neon) - production   
 Django Crispy Forms  
 Class-Based Views (CBV)  
 Custom User Model (AbstractUser)  
