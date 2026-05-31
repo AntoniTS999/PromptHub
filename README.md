@@ -1,6 +1,9 @@
 # PromptHub
 📌 PromptHub
 
+🌍 Live Demo  
+https://prompthub-laiz.onrender.com
+
 PromptHub is a platform for storing, discovering, and sharing AI prompts.
 
 🚀 Features
@@ -16,7 +19,7 @@ Users can rate prompts only from the detailed prompt view. Each user can rate a 
 Users can comment on prompts, including comments on other users’ prompts. This allows discussion and feedback within the community.
 
 
-🛠️ Technologies Used
+🛠️ Technologies Used  
 Django 6.0.5  
 Python 3.12+  
 Bootstrap 4  
